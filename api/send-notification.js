@@ -53,6 +53,7 @@ export default async function handler(req, res) {
       notification: {
         title: `${senderName}`,
         body: message,
+        sound: "default",
       },
       token: fcmToken,
     };
