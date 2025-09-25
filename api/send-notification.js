@@ -53,8 +53,20 @@ export default async function handler(req, res) {
       notification: {
         title: `${senderName}`,
         body: message,
+      
+      },
+      android: {
+    notification: {
+      sound: "default",
+    },
+  },
+  apns: {
+    payload: {
+      aps: {
         sound: "default",
       },
+    },
+  },
       token: fcmToken,
     };
 
