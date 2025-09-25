@@ -64,19 +64,7 @@ const payload = {
     body: message,
     sound: "default", // ensures sound
   },
-  android: {
-    notification: {
-      sound: "default", // for Android
-      channelId: "chat_channel", // must match Flutter channel
-    }
-  },
-  apns: {
-    payload: {
-      aps: {
-        sound: "default", // for iOS
-      }
-    }
-  },
+
   token: fcmToken,
 };
 
