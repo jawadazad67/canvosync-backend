@@ -58,12 +58,14 @@ export default async function handler(req, res) {
       android: {
     notification: {
       sound: "default",
+      channelId: "default_channel",
     },
   },
   apns: {
     payload: {
       aps: {
         sound: "default",
+        
       },
     },
   },
