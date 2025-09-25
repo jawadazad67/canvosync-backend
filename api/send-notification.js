@@ -53,12 +53,13 @@ export default async function handler(req, res) {
       notification: {
         title: `${senderName}`,
         body: message,
+        sound: "default"
       
       },
       android: {
     notification: {
       sound: "default",
-      channelId: "default_channel",
+     channel_id: "default_channel", // ✅ correct key
     },
   },
   apns: {
