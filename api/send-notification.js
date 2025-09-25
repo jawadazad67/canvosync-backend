@@ -48,14 +48,29 @@ export default async function handler(req, res) {
       }
     }
 
-    // Prepare FCM payload
-    const payload = {
-      notification: {
-        title: `New message from ${senderName}`,
-        body: message,
-      },
-      token: fcmToken,
-    };
+   // Prepare FCM payload
+const payload = {
+  notification: {
+    title: `${senderName}`,
+    body: message,
+    sound: "default", // ensures sound
+  },
+  android: {
+    notification: {
+      sound: "default", // for Android
+      channelId: "chat_channel", // must match Flutter channel
+    }
+  },
+  apns: {
+    payload: {
+      aps: {
+        sound: "default", // for iOS
+      }
+    }
+  },
+  token: fcmToken,
+};
+
 
     // Send notification
     const response = await messaging.send(payload);
