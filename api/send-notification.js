@@ -58,7 +58,7 @@ export default async function handler(req, res) {
       android: {
     notification: {
       sound: "default",
-     channel_id: "default_channel", // ✅ correct key
+      channelId: "default_channel", // ✅ camelCase here too
     },
   },
   apns: {
