@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     const groupName = groupData.group_name || "Group";
 
     // Exclude sender from notification
-    const receivers = members.filter((uid) => uid !== senderId);
+    const receivers = members.filter((uid));
 
     // Collect FCM tokens
     const tokens = [];
