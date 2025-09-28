@@ -1,5 +1,7 @@
 import OpenAI from "openai";
+import admin from "../shared/firebaseAdmin.js"
 
+const db = admin.firestore();
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -58,13 +60,22 @@ Rules:
     const extracted = JSON.parse(content);
 
     // 📝 If you also want to write into Firestore here:
-    // - Loop over receiver_ids
+    const reminderDoc = {
+  user_ids: [sender_id, ...receiver_ids], // all users linked to the reminder
+  datetime: extracted.datetime,
+  message: extracted.message,
+  important: extracted.important,
+  created_at: admin.firestore.FieldValue.serverTimestamp()
+};
+ 
+   
     // - Save { sender_id, receiver_id, ...extracted } into reminders collection
+    await db.collection("Reminder_task").add(reminderDoc);
+
 
     return res.status(200).json({
-      sender_id,
-      receivers: receiver_ids,
-      ...extracted,
+     status: "success",
+  reminder: reminderDoc
     });
   } catch (error) {
     console.error("Reminder extraction error:", error);
