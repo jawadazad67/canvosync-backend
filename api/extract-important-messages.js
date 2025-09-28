@@ -37,7 +37,7 @@ Rules:
 - If only a day (like Monday, tomorrow) is given and no exact time is given and its important then → set time as 09:00 AM.
 - If urgent and today → set datetime = 1 hour after current time (${currentDate} ${currentTime}).
 - important = 0 otherwise.
-- datetime must be in Standard Time (UTC+5).
+- datetime must be in Standard Time do time - 5 hours always. in json response
 - impotant =0 if date-time is previous or behind current date/time then its not important ,same for yesterday , or any previous date.  
 - Today is ${currentDate}, and current time is ${currentTime}.
 `;
