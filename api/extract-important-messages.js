@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import admin from "../shared/firebaseAdmin.js"
+import admin from "../shared/firebaseAdmin.js";
 
 const db = admin.firestore();
 export default async function handler(req, res) {
@@ -18,9 +18,7 @@ export default async function handler(req, res) {
     const nowUtc = new Date();
     const nowPkt = new Date(nowUtc.getTime() + 5 * 60 * 60 * 1000);
     const currentDate = nowPkt.toISOString().split("T")[0];
-    const currentTime = nowPkt
-      .toTimeString()
-      .slice(0, 5); // HH:MM format
+    const currentTime = nowPkt.toTimeString().slice(0, 5); // HH:MM format
 
     const systemPrompt = `
 You are a reminder extractor.
@@ -58,25 +56,29 @@ Rules:
 
     const content = completion.choices[0].message.content;
     const extracted = JSON.parse(content);
+    // only save if important == 1
+    if (extracted.important === 1) {
+      const reminderDoc = {
+        user_ids: [sender_id, ...receiver_ids],
+        datetime: extracted.datetime,
+        message: extracted.message,
+        important: extracted.important,
+        created_at: admin.firestore.FieldValue.serverTimestamp(),
+      };
 
-    // 📝 If you also want to write into Firestore here:
-    const reminderDoc = {
-  user_ids: [sender_id, ...receiver_ids], // all users linked to the reminder
-  datetime: extracted.datetime,
-  message: extracted.message,
-  important: extracted.important,
-  created_at: admin.firestore.FieldValue.serverTimestamp()
-};
- 
-   
-    // - Save { sender_id, receiver_id, ...extracted } into reminders collection
-    await db.collection("Reminder_task").add(reminderDoc);
+      await db.collection("Reminder_task").add(reminderDoc);
 
-
-    return res.status(200).json({
-     status: "success",
-  reminder: reminderDoc
-    });
+      return res.status(200).json({
+        status: "success",
+        reminder: reminderDoc,
+      });
+    } else {
+      // not important → no DB entry
+      return res.status(200).json({
+        status: "ignored",
+        reminder: extracted,
+      });
+    }
   } catch (error) {
     console.error("Reminder extraction error:", error);
     return res.status(500).json({
