@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     const groupName = groupData.groupName || "Group";
 
     // Exclude sender from notification
-     const receivers = members //.filter((uid => uid !== senderId));
+    const receivers = members; //.filter((uid => uid !== senderId));
 
     // Collect FCM tokens
     const tokens = [];
@@ -49,8 +49,8 @@ export default async function handler(req, res) {
     // Build notification payload
     const payload = {
       notification: {
-        title: `${senderName} in ${groupName}`,
-        body: message,
+        title: groupName, // this will already appear bold in most notification UIs
+        body: `${senderName}: ${message}`,
       },
       android: {
         notification: {
