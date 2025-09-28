@@ -27,7 +27,7 @@ Always respond ONLY in valid JSON with the following fields:
 
 {
   "important": 0 or 1,
-  "datetime": "YYYY-MM-DDTHH:MM:SSZ" or null,
+  "datetime": "YYYY-MM-DDTHH:MM:SS" or null,
   "message": "the original user message"
   
 }
@@ -37,7 +37,7 @@ Rules:
 - If only a day (like Monday, tomorrow) is given and no exact time is given and its important then → set time as 09:00 AM.
 - If urgent and today → set datetime = 1 hour after current time (${currentDate} ${currentTime}).
 - important = 0 otherwise.
-- datetime must be in Standard Time (UTC-5) .
+- datetime must be in Standard Time (UTC+5).
 - impotant =0 if date-time is previous or behind current date/time then its not important ,same for yesterday , or any previous date.  
 - Today is ${currentDate}, and current time is ${currentTime}.
 `;
