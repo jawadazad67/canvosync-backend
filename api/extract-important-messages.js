@@ -27,7 +27,7 @@ Always respond ONLY in valid JSON with the following fields:
 
 {
   "important": 0 or 1,
-  "datetime": "YYYY-MM-DD HH:MM" or null,
+  "datetime": "YYYY-MM-DDTHH:MM:SSZ" or null,
   "message": "the original user message"
   
 }
@@ -66,10 +66,13 @@ const receivers = Array.isArray(receiver_ids)
 
 
  const user_ids = [sender_id, ...receivers];
+ // Your current value
+const extractedDatetime = extracted.datetime;
+
 
       const reminderDoc = {
         user_ids,
-        datetime: extracted.datetime,
+        datetime: admin.firestore.Timestamp.fromDate(extractedDatetime), // ✅ Timestamp
         message: extracted.message,
         important: extracted.important,
         created_at: admin.firestore.FieldValue.serverTimestamp(),
