@@ -77,8 +77,8 @@ export default async function handler(req, res) {
       tokens,
       ...payload,
     });
-
-    return res.status(200).json({ success: true, sent: tokens.length });
+    console.log(tokens);
+    // return res.status(200).json({ success: true, sent: tokens.length });
   } catch (error) {
     console.error("Error sending notification:", error);
     return res.status(500).json({ error: error.message });
