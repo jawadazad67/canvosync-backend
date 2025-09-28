@@ -29,6 +29,7 @@ Always respond ONLY in valid JSON with the following fields:
   "important": 0 or 1,
   "datetime": "YYYY-MM-DD HH:MM" or null,
   "message": "the original user message"
+  
 }
 
 Rules:
@@ -58,12 +59,12 @@ Rules:
     const extracted = JSON.parse(content);
     // only save if important == 1
     if (extracted.important === 1) {
-
-      const receivers = Array.isArray(extracted.receiver_ids)
+      let receivers = Array.isArray(receiver_ids)
   ? extracted.receiver_ids
-  : extracted.receiver_ids.split(",").map(r => r.trim());
+  : [extracted.receiver_ids];
 
-const user_ids = [extracted.sender_id, ...receivers];
+
+ const user_ids = [sender_id, ...receiver_ids];
 
       const reminderDoc = {
         user_ids,
@@ -85,7 +86,7 @@ const user_ids = [extracted.sender_id, ...receivers];
         status: "ignored",
         reminder: extracted,
       });
-    }
+     }
   } catch (error) {
     console.error("Reminder extraction error:", error);
     return res.status(500).json({
