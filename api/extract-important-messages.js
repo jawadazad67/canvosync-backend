@@ -67,7 +67,8 @@ const receivers = Array.isArray(receiver_ids)
 
  const user_ids = [sender_id, ...receivers];
  // Your current value
- const extractedDatetime = new Date( extracted.datetime);
+  const extractedDatetimeString = extracted.datetime;
+ const extractedDatetime = new Date( extractedDatetimeString);
 
 
       const reminderDoc = {
@@ -82,6 +83,7 @@ const receivers = Array.isArray(receiver_ids)
 
       return res.status(200).json({
         status: "success",
+        date: extracted.datetime,
         reminder: reminderDoc,
       });
     } else {
