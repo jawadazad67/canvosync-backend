@@ -59,12 +59,13 @@ Rules:
     const extracted = JSON.parse(content);
     // only save if important == 1
     if (extracted.important === 1) {
-      let receivers = Array.isArray(receiver_ids)
-  ? extracted.receiver_ids
-  : [extracted.receiver_ids];
+  // Normalize receiver_ids into array always
+const receivers = Array.isArray(receiver_ids)
+  ? req.body.receiver_ids
+  : [req.body.receiver_ids];
 
 
- const user_ids = [sender_id, ...receiver_ids];
+ const user_ids = [sender_id, ...receivers];
 
       const reminderDoc = {
         user_ids,
