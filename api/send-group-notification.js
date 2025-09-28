@@ -21,10 +21,10 @@ export default async function handler(req, res) {
 
     const groupData = groupSnap.data();
     const members = groupData.members || [];
-    const groupName = groupData.group_name || "Group";
+    const groupName = groupData.groupName || "Group";
 
     // Exclude sender from notification
-    const receivers = members;
+    const receivers = members.filter((uid => uid !== senderId));
 
     // Collect FCM tokens
     const tokens = [];
@@ -77,8 +77,8 @@ export default async function handler(req, res) {
       tokens,
       ...payload,
     });
-    console.log(tokens);
-    // return res.status(200).json({ success: true, sent: tokens.length });
+
+    return res.status(200).json({ success: true, sent: tokens.length });
   } catch (error) {
     console.error("Error sending notification:", error);
     return res.status(500).json({ error: error.message });
