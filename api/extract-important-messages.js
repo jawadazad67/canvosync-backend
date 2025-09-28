@@ -57,6 +57,8 @@ Rules:
 
     const content = completion.choices[0].message.content;
     const extracted = JSON.parse(content);
+    console.log(extracted.datetime);
+    
     // only save if important == 1
     if (extracted.important === 1) {
   // Normalize receiver_ids into array always
