@@ -58,8 +58,15 @@ Rules:
     const extracted = JSON.parse(content);
     // only save if important == 1
     if (extracted.important === 1) {
+
+      const receivers = Array.isArray(extracted.receiver_ids)
+  ? extracted.receiver_ids
+  : extracted.receiver_ids.split(",").map(r => r.trim());
+
+const user_ids = [extracted.sender_id, ...receivers];
+
       const reminderDoc = {
-        user_ids: [sender_id, ...receiver_ids],
+        user_ids,
         datetime: extracted.datetime,
         message: extracted.message,
         important: extracted.important,
