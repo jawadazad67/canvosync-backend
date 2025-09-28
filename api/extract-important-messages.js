@@ -67,12 +67,12 @@ const receivers = Array.isArray(receiver_ids)
 
  const user_ids = [sender_id, ...receivers];
  // Your current value
-const extractedDatetime = extracted.datetime;
+// const extractedDatetime = extracted.datetime;
 
 
       const reminderDoc = {
         user_ids,
-        datetime: admin.firestore.Timestamp.fromDate(extractedDatetime), // ✅ Timestamp
+        datetime: admin.firestore.Timestamp.fromDate(extracted.datetime), // ✅ Timestamp
         message: extracted.message,
         important: extracted.important,
         created_at: admin.firestore.FieldValue.serverTimestamp(),
