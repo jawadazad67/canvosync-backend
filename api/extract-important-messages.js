@@ -26,7 +26,8 @@ res.setHeader("Access-Control-Allow-Origin", "*");
 
     // Get current PKT (UTC+5)
     const nowUtc = new Date();
-    const nowPkt = new Date(nowUtc.getTime() + 5 * 60 * 60 * 1000);
+    // const nowPkt = new Date(nowUtc.getTime() + 5 * 60 * 60 * 1000);
+    const nowPkt = new Date(nowUtc.getTime());
     const currentDate = nowPkt.toISOString().split("T")[0];
     const currentTime = nowPkt.toTimeString().slice(0, 5); // HH:MM format
 
