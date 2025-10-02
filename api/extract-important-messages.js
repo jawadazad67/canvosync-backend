@@ -46,7 +46,7 @@ Always respond ONLY in valid JSON with the following fields:
 Rules:
 - important = 1 if the message refers to a specific date/time, upcoming day, tomorrow, etc.
 - If only a day (like Monday, tomorrow) is given and no exact time is given and its important then → set time as 09:00 AM.
-- If urgent and today → set datetime = 1 hour after current time (${currentDate} ${currentTime}).
+- If urgent and today and no time explicitly given then  → set datetime = 1 hour after current time (${currentDate} ${currentTime}).
 - important = 0 otherwise.
 - datetime must be in pakistan Standard Time (UTC+5).
 - impotant =0 if date-time is previous or behind current date/time then its not important ,same for yesterday , or any previous date.  
