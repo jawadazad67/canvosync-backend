@@ -44,6 +44,7 @@ Always respond ONLY in valid JSON with the following fields:
 }
 
 Rules:
+- only processs if messsage all 80,90 percent in english else . mark it not important.
 - important = 1 if the message refers to a specific date/time, upcoming day, tomorrow, etc.
 - If only a day (like Monday, tomorrow) is given and no exact time is given and its important then → set time as 09:00 AM.
 - If urgent and today and no time explicitly given then  → set datetime = 1 hour after current time (${currentDate} ${currentTime}).
